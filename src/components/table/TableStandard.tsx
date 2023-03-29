@@ -207,7 +207,7 @@ const TableStandard = ({
 
   const [loading, setLoading] = React.useState(false);
   const [limit, setLimit] = React.useState(10);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [sortBy, setSortBy] = React.useState("");
   const [sortDir, setSortDir] = React.useState("desc");
   const [data, setData] = React.useState(DefautTableData);

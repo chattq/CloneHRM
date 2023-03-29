@@ -36,7 +36,6 @@ const PositionList = () => {
 
   // const { OrgId, NetworkId } = store.getState().orgInfo;
   const { OrgId, NetworkId } = useSelector((state: any) => state.orgInfo);
-  console.log(46, OrgId);
   const windowSize = useWindowSize();
   const [loadDataKey, setLoadDataKey] = useState("0");
   const [keyword, setKeyword] = useState("");

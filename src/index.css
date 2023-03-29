@@ -177,3 +177,9 @@
 .idn-display-none {
   display: none;
 }
+.modal_custom.modal_custom {
+  width: 700px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

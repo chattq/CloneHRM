@@ -51,7 +51,7 @@ const DepList = () => {
     sortDir?: string;
   }) => {
     const resp = await department_service.search({
-      Ft_PageIndex: page,
+      Ft_PageIndex: page - 1,
       Ft_PageSize: limit,
       OrgId: OrgId.toString(),
       Keyword: keyword,

@@ -164,7 +164,8 @@ export default function DepEdit({
         role="alertdialog"
         open={open}
         onClose={handleClose}
-        size="xs">
+        size="sm"
+        className="modal_custom">
         {/* thay đổi title khi click */}
         <Modal.Header>
           {code && code !== "" ? (
