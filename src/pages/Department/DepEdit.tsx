@@ -61,9 +61,11 @@ export default function DepEdit({
 
   const loadDepDetail = async () => {
     //edit khi click vào check box và edit thì data sẽ đổ lên
+    // nếu có 1 thông tin của cột(code) thì nó sẽ là edit và đổ data thông tin code đó lên
     if (code && code !== "") {
+      //  thông tin cột đó
       let resp = await department_service.getByCode(code);
-      // console.log(66, resp);
+      // console.log(66, resp); data toàn bộ của một cột
       if (resp.Success) {
         let data = resp.Data;
         if (data != null) {
@@ -77,7 +79,6 @@ export default function DepEdit({
             DepartmentDesc: data.DepartmentDesc,
             FlagActive: data.FlagActive,
             md_DepartmentNameParent: data.md_DepartmentNameParent,
-            IsActive: data.FlagActive === "1" ? true : false,
           });
         }
       } else {
@@ -86,7 +87,7 @@ export default function DepEdit({
       }
     }
 
-    //create
+    //create nếu không có code thì nó sẽ trở thành thêm mới
     else {
       setFormValue(defaultFormValue);
     }
@@ -130,71 +131,31 @@ export default function DepEdit({
     });
   };
 
-  const FlagActiveItem = ({
-    accepter,
-    formValue,
-  }: {
-    accepter: any;
-    formValue: any;
-  }) => {
-    if (formValue.ContractTypeCode && formValue.ContractTypeCode !== "") {
-      return (
-        <>
-          <Form.Group controlId="textarea-9">
-            <Form.ControlLabel>{_l("Active")}</Form.ControlLabel>
-            <Form.Control
-              name="IsActive"
-              accepter={accepter}
-              checked={formValue.IsActive ? true : false}
-              checkedChildren={_l("Active")}
-              unCheckedChildren={_l("Inactive")}
-            />
-          </Form.Group>
-        </>
-      );
-    }
-    return <></>;
-  };
+  // body modal form
+  const body = () => (
+    <Form fluid onChange={setFormValue} formValue={formValue}>
+      <Form.Group controlId="name-9">
+        <Form.ControlLabel>{_l("DepartmentName")}</Form.ControlLabel>
+        <Form.Control name="DepartmentName" rule={nameRule} />
+      </Form.Group>
 
-  // body modal
-  const body = () => {
-    if (loading)
-      return <Placeholder.Paragraph rows={5} style={{ marginTop: 30 }} />;
-    if (notFound) {
-      return (
-        <>
-          <strong>{_l("No data")}</strong>
-        </>
-      );
-    }
-    return (
-      <>
-        <Form fluid onChange={setFormValue} formValue={formValue}>
-          <Form.Group controlId="name-9">
-            <Form.ControlLabel>{_l("DepartmentName")}</Form.ControlLabel>
-            <Form.Control name="DepartmentName" rule={nameRule} />
-          </Form.Group>
-
-          <Form.Group controlId="name-9">
-            <Form.ControlLabel>{_l("DepartmentCodeParent")}</Form.ControlLabel>
-            <Form.Control
-              name="DepartmentCodeParent"
-              style={{ width: "100%" }}
-              labelKey="DepartmentName" // các cái key ở trong data để truyền vào select
-              valueKey="DepartmentCode"
-              accepter={SelectPicker}
-              data={depList}
-            />
-          </Form.Group>
-          <Form.Group controlId="textarea-9">
-            <Form.ControlLabel>{_l("DepartmentDesc")}</Form.ControlLabel>
-            <Form.Control rows={2} name="DepartmentDesc" accepter={Textarea} />
-          </Form.Group>
-          <FlagActiveItem accepter={Toggle} formValue={formValue} />
-        </Form>
-      </>
-    );
-  };
+      <Form.Group controlId="name-9">
+        <Form.ControlLabel>{_l("DepartmentCodeParent")}</Form.ControlLabel>
+        <Form.Control
+          name="DepartmentCodeParent"
+          style={{ width: "100%" }}
+          labelKey="DepartmentName" // các cái key ở trong data để truyền vào select
+          valueKey="DepartmentCode"
+          accepter={SelectPicker}
+          data={depList}
+        />
+      </Form.Group>
+      <Form.Group controlId="textarea-9">
+        <Form.ControlLabel>{_l("DepartmentDesc")}</Form.ControlLabel>
+        <Form.Control rows={2} name="DepartmentDesc" accepter={Textarea} />
+      </Form.Group>
+    </Form>
+  );
 
   return (
     <>

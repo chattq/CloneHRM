@@ -214,8 +214,6 @@ const TableStandard = ({
   const [layout, setLayout] = useState(
     defaultLayout ? defaultLayout : "TableView"
   );
-  console.log(217, data);
-
   const defaultHList: any[] = [];
   const [hiddenList, setHiddenList] = useState(defaultHList);
 

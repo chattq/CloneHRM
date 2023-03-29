@@ -150,6 +150,7 @@ const DepList = () => {
 
   const handleEdit = (checkedItems: any[]) => {
     let code = checkedItems[0].DepartmentCode;
+    // checkedItems lấy được các thông tin của cột đó
     setCurrentDetailCode(
       <DepEdit code={code} uuid={uuid()} onSuccess={reloadList} />
     );
@@ -204,6 +205,7 @@ const DepList = () => {
             // chỉnh màu sắc
             style={{ backgroundColor: "black" }}
             appearance="primary"
+            // khi click vào, sẽ lấy được id, id xuất hiện thì hàm useEffect chạy, sau đó sẽ mở modal
             onClick={() => handleEdit(checkedKeys)}>
             <Icon as={FiEdit2}></Icon>
             {_l("Edit")}
