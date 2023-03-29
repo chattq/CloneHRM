@@ -26,11 +26,13 @@ import { ShowError, Confirm } from "components/Dialogs/Dialogs";
 import department_service from "services/department_service";
 import { toast } from "react-toastify";
 import DepEdit from "./DepEdit";
+import { useSelector } from "react-redux";
 
 const DepList = () => {
   const _l = useLocalization("DeparmentList");
 
-  const { OrgId, NetworkId } = store.getState().orgInfo;
+  // const { OrgId, NetworkId } = store.getState().orgInfo;
+  const { OrgId, NetworkId } = useSelector((state: any) => state.orgInfo);
   const windowSize = useWindowSize();
   const [loadDataKey, setLoadDataKey] = useState("0");
   const [keyword, setKeyword] = useState("");
@@ -67,7 +69,7 @@ const DepList = () => {
     return resp;
   };
   const StatusCell = ({ status }: { status: any }) => {
-    if (status == "0")
+    if (status === "0")
       //trạng thái 0: ko active, trạng thái 1 là active
       return (
         <span

@@ -1,54 +1,46 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
-import { useParams } from "react-router-dom";
-import Link from "components/NetworkLink";
+import React, { useState } from "react";
+
 import {
   Container,
   Header,
   Content,
   Stack,
   IconButton,
-  Panel,
   Grid,
   Row,
   Col,
-  Badge,
-  Form,
   Button,
-  ButtonToolbar,
-  TagPicker,
   InputGroup,
   Input,
-  Modal,
 } from "rsuite";
-import store from "store/store";
+
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import { AiFillEye } from "react-icons/ai";
+
 import TableStandard, { ColumDataProps } from "components/table/TableStandard";
 import { Icon } from "@rsuite/icons";
 import { useWindowSize } from "hooks/useWindowSize";
-import Avatar from "components/Avatar";
-import { useLocalization } from "hooks/useLocalization";
-import { BsDot, BsPlus, BsPlusCircle, BsSearch } from "react-icons/bs";
 
-import { useNetworkNavigate } from "hooks/useNetworkNavigate";
+import { useLocalization } from "hooks/useLocalization";
+import { BsPlusCircle, BsSearch } from "react-icons/bs";
+
 import { v4 as uuid } from "uuid";
 
 import { ShowError, Confirm } from "components/Dialogs/Dialogs";
 import position_service from "services/position_service";
 import { toast } from "react-toastify";
 import PositionEdit from "./PositionEdit";
+import { useSelector } from "react-redux";
 
 const PositionList = () => {
   const _l = useLocalization("PositionList");
 
-  const { OrgId, NetworkId } = store.getState().orgInfo;
+  // const { OrgId, NetworkId } = store.getState().orgInfo;
+  const { OrgId, NetworkId } = useSelector((state: any) => state.orgInfo);
+  console.log(46, OrgId);
   const windowSize = useWindowSize();
   const [loadDataKey, setLoadDataKey] = useState("0");
   const [keyword, setKeyword] = useState("");
-  const defautCheckedItems: string[] = [];
-  const [checkedItems, setCheckedItems] = useState(defautCheckedItems);
   const [currentDetailCode, setCurrentDetailCode] = useState(<></>);
-  const navigate = useNetworkNavigate();
 
   const fetchData = async ({
     page,

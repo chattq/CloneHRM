@@ -57,7 +57,6 @@ export default function DepEdit({
   const [depList, setDepList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const formRef: any = React.useRef();
   // console.log(61, depList);
 
   const loadDepDetail = async () => {
@@ -119,11 +118,6 @@ export default function DepEdit({
   }, [code, uuid]);
 
   const handleSubmit = () => {
-    if (!formRef.current || !formRef.current.check) return;
-    if (!formRef.current.check()) {
-      console.error("Form Error");
-      return;
-    }
     //console.log(formValue, 'Form Value');
     department_service.update(formValue).then((resp) => {
       if (resp.Success) {
@@ -175,7 +169,7 @@ export default function DepEdit({
     }
     return (
       <>
-        <Form fluid onChange={setFormValue} formValue={formValue} ref={formRef}>
+        <Form fluid onChange={setFormValue} formValue={formValue}>
           <Form.Group controlId="name-9">
             <Form.ControlLabel>{_l("DepartmentName")}</Form.ControlLabel>
             <Form.Control name="DepartmentName" rule={nameRule} />
@@ -186,7 +180,7 @@ export default function DepEdit({
             <Form.Control
               name="DepartmentCodeParent"
               style={{ width: "100%" }}
-              labelKey="DepartmentName"
+              labelKey="DepartmentName" // các cái key ở trong data để truyền vào select
               valueKey="DepartmentCode"
               accepter={SelectPicker}
               data={depList}
