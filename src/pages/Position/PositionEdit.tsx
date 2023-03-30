@@ -144,7 +144,6 @@ export default function PositionEdit({
     }
     return <></>;
   };
-  console.log(147, nntList);
   const body = () => {
     if (loading)
       return <Placeholder.Paragraph rows={5} style={{ marginTop: 30 }} />;

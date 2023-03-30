@@ -24,7 +24,7 @@ const getByCode = async (code: string) => {
 const update = async (data: any) => {
   //create
   if (!data.DepartmentCode || data.DepartmentCode === "") {
-    data.isNew = true;
+    data.isNew = true; // phân biệt data mới vừa update lên
     let str = JSON.stringify(data);
     return await api.post("Mst_Department/create", { strJson: str });
   } else {
